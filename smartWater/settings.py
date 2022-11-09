@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-62-t4cid8x)yka9eiu1bw8a4+cmwblmfav9ut^!*zcyu1cg1*8
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://smart-garrafon.herokuapp.com']
 
 
 # Application definition
