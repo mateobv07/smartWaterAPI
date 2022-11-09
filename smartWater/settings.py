@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['https://smart-garrafon.herokuapp.com']
 
+CSRF_TRUSTED_ORIGINS = ['https://smart-garrafon.herokuapp.com','https://*.127.0.0.1', 'http://*.127.0.0.1']
+
 
 # Application definition
 
