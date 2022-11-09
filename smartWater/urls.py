@@ -29,4 +29,4 @@ urlpatterns = [
     path('login/', obtain_auth_token, name="login"),
     path('', include(router.urls)),
     path('register/', views.RegisterView.as_view(), name='auth_register'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
