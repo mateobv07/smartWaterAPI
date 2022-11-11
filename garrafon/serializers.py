@@ -10,7 +10,7 @@ from django.contrib.auth.password_validation import validate_password
 class GarrafonSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Garrafon
-        fields = ['id', 'cantidad']
+        fields = ['id', 'cantidad', 'name']
 
 
 

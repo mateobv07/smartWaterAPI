@@ -26,9 +26,7 @@ SECRET_KEY = 'django-insecure-62-t4cid8x)yka9eiu1bw8a4+cmwblmfav9ut^!*zcyu1cg1*8
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://smart-garrafon.herokuapp.com']
 
-CSRF_TRUSTED_ORIGINS = ['https://smart-garrafon.herokuapp.com','https://*.127.0.0.1', 'http://*.127.0.0.1']
 
 
 # Application definition
@@ -44,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'garrafon',
+    'botella',
+    'agua',
 ]
 
 REST_FRAMEWORK={
@@ -60,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'smartWater.urls'
@@ -141,3 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ALLOWED_HOSTS=['*']
 
 CORS_ORIGIN_ALLOW_ALL=True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]

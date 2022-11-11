@@ -2,7 +2,7 @@ from rest_framework import viewsets, generics
 from .models import Garrafon
 
 from .serializers import GarrafonSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from django.contrib.auth.models import User
 from .serializers import CurrentUserSerializer, RegisterSerializer
@@ -10,7 +10,7 @@ from .serializers import CurrentUserSerializer, RegisterSerializer
 
 # Create your views here.
 class GarrafonViewSet(viewsets.ModelViewSet):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = Garrafon.objects.all()
     serializer_class = GarrafonSerializer
         

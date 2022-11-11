@@ -26,6 +26,8 @@ router.register(r'users', views.CurrentUserViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('garrafon/', include('garrafon.urls')),
+    path('botella/', include('botella.urls')),
+    path('agua/', include('agua.urls')),
     path('login/', obtain_auth_token, name="login"),
     path('', include(router.urls)),
     path('register/', views.RegisterView.as_view(), name='auth_register'),

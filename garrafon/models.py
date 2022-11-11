@@ -11,9 +11,10 @@ class Garrafon(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     cantidad = models.FloatField(default=None)
+    name = models.CharField(max_length=30, default="Name")
 
     def __str__(self):
-        return f"{self.cantidad} Litros"
+        return f"{self.name} - {self.cantidad} Litros"
 
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 def createAuthToken(sender, instance, created, **kwargs):
