@@ -12,6 +12,7 @@ class Garrafon(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     cantidad = models.FloatField(default=None)
     name = models.CharField(max_length=30, default="Name")
+    code = models.CharField(max_length=20, default="code123")
 
     def __str__(self):
         return f"{self.name} - {self.cantidad} Litros"
