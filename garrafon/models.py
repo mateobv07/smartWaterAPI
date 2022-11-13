@@ -9,13 +9,15 @@ from rest_framework.authtoken.models import Token
 class Garrafon(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    cantidad = models.FloatField(default=None)
+    updated_at = models.DateTimeField(auto_now=True, editable=True)
+    cantidad = models.FloatField(default=None, editable=True)
     name = models.CharField(max_length=30, default="Name")
     code = models.CharField(max_length=20, default="code123")
+    refills = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.name} - {self.cantidad} Litros"
+
 
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 def createAuthToken(sender, instance, created, **kwargs):

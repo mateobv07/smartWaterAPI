@@ -5,7 +5,10 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
 
-class AguaSerializer(serializers.HyperlinkedModelSerializer):
+class AguaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Agua
         fields = '__all__'
+
+class TotalSerializer(serializers.Serializer):
+    cantidad = serializers.FloatField()

@@ -1,10 +1,9 @@
 from django.urls import include, path
 from agua import views
-from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter()
-router.register(r'', views.AguaViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('myTotal/', views.UserTotalWater.as_view()),
+    path('myWeek/', views.MyAguaSemana.as_view()),
+    path('create/', views.CreateAgua.as_view())
 ]

@@ -7,10 +7,10 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
 
-class GarrafonSerializer(serializers.HyperlinkedModelSerializer):
+class GarrafonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Garrafon
-        fields = ['id', 'cantidad', 'name']
+        fields = '__all__'
 
 
 
