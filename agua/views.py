@@ -17,8 +17,8 @@ class CreateAgua(generics.CreateAPIView):
         data = request.data.copy()
         #Hard code garrafon and botella 
         data['user'] = self.request.user.pk
-        data['garrafon'] = 2
-        data['botella'] = 2
+        data['garrafon'] = 1
+        data['botella'] = 1
         
         try:
             curGarrafon = Garrafon.objects.get(id=1)
