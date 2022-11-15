@@ -21,7 +21,7 @@ class CreateAgua(generics.CreateAPIView):
         data['botella'] = 2
         
         try:
-            curGarrafon = Garrafon.objects.get(id=2)
+            curGarrafon = Garrafon.objects.get(id=1)
         except Garrafon.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
