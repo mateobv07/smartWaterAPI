@@ -1,5 +1,6 @@
 from rest_framework import viewsets,generics
 from .models import Agua
+from garrafon.models import Garrafon
 from .serializers import AguaSerializer,TotalSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -18,6 +19,18 @@ class CreateAgua(generics.CreateAPIView):
         data['user'] = self.request.user.pk
         data['garrafon'] = 2
         data['botella'] = 2
+        
+        try:
+            curGarrafon = Garrafon.objects.get(id=2)
+        except Garrafon.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        newValue = curGarrafon.cantidad- float(request.data['cantidad'])
+        if newValue < 0:
+            newValue = 0
+            
+        curGarrafon.__dict__.update(cantidad = newValue)
+        curGarrafon.save()
 
         serializer = AguaSerializer(data=data)
         if serializer.is_valid():
@@ -46,6 +59,7 @@ class UserTotalWater(generics.ListAPIView):
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
