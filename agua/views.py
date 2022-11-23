@@ -55,8 +55,8 @@ class CreateAgua(generics.CreateAPIView):
 
         #update water bottle
         curBotella = Botella.objects.get(id=1)
-        curBotella.__dict__.update(name = curBotella.name)
         curBotella.save()
+        
 
         #Add new water entry
         serializer = AguaSerializer(data=data)
