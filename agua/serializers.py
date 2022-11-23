@@ -12,6 +12,8 @@ class AguaSerializer(serializers.ModelSerializer):
 
 class TotalSerializer(serializers.Serializer):
     cantidad = serializers.FloatField()
+    daysAchieved = serializers.IntegerField()
+    todayTotal = serializers.FloatField()
 
 class WeekSerializer(serializers.Serializer):
     hoy = serializers.FloatField()
