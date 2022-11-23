@@ -1,6 +1,7 @@
 from rest_framework import viewsets,generics
 from .models import Agua, UserGoals
 from garrafon.models import Garrafon
+from botella.models import Botella
 from .serializers import AguaSerializer,TotalSerializer,WeekSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -51,6 +52,11 @@ class CreateAgua(generics.CreateAPIView):
 
         except UserGoals.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+        #update water bottle
+        curBotella = Botella.objects.get(id=1)
+        curBotella.__dict__.update(name = curBotella.name)
+        curBotella.save()
 
         #Add new water entry
         serializer = AguaSerializer(data=data)
