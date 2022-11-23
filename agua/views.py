@@ -20,6 +20,8 @@ class CreateAgua(generics.CreateAPIView):
         data['user'] = self.request.user.pk
         data['garrafon'] = 1
         data['botella'] = 1
+        data['created_at'] = timezone.now()
+        data['updated_at'] = timezone.now()
         
         #get garrafon and update current amount
         try:
