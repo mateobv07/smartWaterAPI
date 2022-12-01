@@ -10,6 +10,7 @@ from datetime import datetime, timedelta, date
 from django.utils import timezone
 from django.db.models import Sum
 import locale
+
 class CreateAgua(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = AguaSerializer
@@ -106,15 +107,27 @@ class UserStadistics(generics.ListAPIView):
     serializer_class = TotalSerializer
 
     def get(self, request, *args,**kwargs):
-        curUser = self.request.user        
-        total = Agua.objects.filter(user=curUser).aggregate(cantidad=Sum('cantidad'))
-        userGoal = UserGoals.objects.get(user=curUser)
+        allEntries = Agua.objects.filter(user=self.request.user)
+        total = 0
+        bottles,garrafones = {}, {}
+        meses = {'enero':0, 'febrero':0, 'marzo':0, 'abril':0, 'mayo':0, 'junio':0, 'julio':0, 'agosto':0, 'septiembre':0, 'octubre':0, 'noviembre':0, 'diciembre':0}
+        locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+        for obj in allEntries:
+            meses[obj.created_at.strftime('%B')] += obj.cantidad
+            bottles[obj.botella.name] = bottles.get(obj.botella.name, 0) + obj.cantidad
+            garrafones[obj.garrafon.name] = garrafones.get(obj.garrafon.name, 0) + obj.cantidad
+            total += obj.cantidad
+        
+        userGoal = UserGoals.objects.get(user=self.request.user)
         todayTotal = Agua.objects.filter(user=self.request.user, created_at__gte=timezone.now().date()).aggregate(cantidad=Sum('cantidad'))
         serializer = TotalSerializer(
-            data={'cantidad': round(total['cantidad'],2), 
+            data={'cantidad': round(total,2), 
             'daysAchieved':userGoal.daysAchieved,
-            'todayTotal': 0 if not todayTotal['cantidad'] else todayTotal['cantidad']}
-            )
+            'todayTotal': 0 if not todayTotal['cantidad'] else todayTotal['cantidad'],
+            'meses': meses,
+            'bottles': bottles,
+            'garrafones': garrafones
+            })
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

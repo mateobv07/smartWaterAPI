@@ -14,6 +14,9 @@ class TotalSerializer(serializers.Serializer):
     cantidad = serializers.FloatField()
     daysAchieved = serializers.IntegerField()
     todayTotal = serializers.FloatField()
+    meses = serializers.DictField()
+    bottles = serializers.DictField()
+    garrafones = serializers.DictField()
 
 class WeekSerializer(serializers.Serializer):
     hoy = serializers.FloatField()
