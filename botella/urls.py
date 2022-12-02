@@ -8,5 +8,7 @@ router.register(r'', views.BotellaViewSet)
 
 urlpatterns = [
     path('my/', views.MyBotellas.as_view()),
+    path('updateOne/', views.UpdateOneBotella.as_view()),
     path('', include(router.urls)),
 ]
+ 

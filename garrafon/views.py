@@ -37,11 +37,12 @@ class UpdateOneGarrafon(generics.UpdateAPIView):
     serializer_class = GarrafonSerializer
     def update(self, request, *args, **kwargs):
         try:
-            curGarrafon = Garrafon.objects.get(id=2)
+            curGarrafon = Garrafon.objects.get(id=request.data['id'])
         except Garrafon.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         curGarrafon.__dict__.update(cantidad = request.data['cantidad'])
+        curGarrafon.__dict__.update(name = request.data['name'])
         curGarrafon.save()
         return Response(status=status.HTTP_200_OK)
 

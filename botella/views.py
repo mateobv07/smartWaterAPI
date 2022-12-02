@@ -12,6 +12,18 @@ class BotellaViewSet(viewsets.ModelViewSet):
     queryset = Botella.objects.all()
     serializer_class = BotellaSerializer
 
+class UpdateOneBotella(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = BotellaSerializer
+    def update(self, request, *args, **kwargs):
+        try:
+            curBotella = Botella.objects.get(id=request.data['id'])
+        except Botella.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        curBotella.__dict__.update(name = request.data['name'])
+        curBotella.save()
+        return Response(status=status.HTTP_200_OK)
 
 class MyBotellas(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
