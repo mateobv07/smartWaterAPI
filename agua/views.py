@@ -120,13 +120,16 @@ class UserStadistics(generics.ListAPIView):
         
         userGoal = UserGoals.objects.get(user=self.request.user)
         todayTotal = Agua.objects.filter(user=self.request.user, created_at__gte=timezone.now().date()).aggregate(cantidad=Sum('cantidad'))
+        latestRefill = Agua.objects.filter(user=self.request.user).last()
+
         serializer = TotalSerializer(
             data={'cantidad': round(total,2), 
             'daysAchieved':userGoal.daysAchieved,
             'todayTotal': 0 if not todayTotal['cantidad'] else todayTotal['cantidad'],
             'meses': meses,
             'bottles': bottles,
-            'garrafones': garrafones
+            'garrafones': garrafones,
+            'latestRefill': round(latestRefill.cantidad, 2)
             })
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_200_OK)

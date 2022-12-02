@@ -17,6 +17,7 @@ class TotalSerializer(serializers.Serializer):
     meses = serializers.DictField()
     bottles = serializers.DictField()
     garrafones = serializers.DictField()
+    latestRefill = serializers.FloatField()
 
 class WeekSerializer(serializers.Serializer):
     hoy = serializers.FloatField()
